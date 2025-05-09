@@ -14,17 +14,28 @@ async function login(email, password) {
 }
 
 // Función para crear tareas (Recepcionista)
+// En js/app.js
 async function crearTarea(detalle) {
-  const user = JSON.parse(localStorage.getItem('user'));
-  
-  const response = await fetch(API_URL, {
-    method: 'POST',
-    body: JSON.stringify({
-      action: 'crearTarea',
-      detalle: detalle,
-      email: user.email
-    })
-  });
+  try {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      body: JSON.stringify({
+        action: 'crearTarea',
+        detalle: detalle,
+        email: user.email
+      })
+    });
+    const result = await response.json();
+    return result; // Asegúrate de que el backend devuelva { success: true }
+  } catch (error) {
+    console.error("Error:", error);
+    return { success: false, error: "Error al crear la tarea" };
+  }
+}
+
+// Expón la función al ámbito global
+window.crearTarea = crearTarea;
   
   return await response.json();
 }

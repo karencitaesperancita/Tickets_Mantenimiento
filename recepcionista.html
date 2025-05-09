@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Nueva Tarea</h1>
+    <textarea id="detalle"></textarea>
+    <button onclick="crearTarea()">Crear</button>
+  </div>
+  <script src="js/app.js"></script>
+  <script>
+    async function crearTarea() {
+      const detalle = document.getElementById('detalle').value;
+      const result = await window.crearTarea(detalle);
+      if (result.success) alert("Tarea creada!");
+    }
+  </script>
+</body>
+</html>
